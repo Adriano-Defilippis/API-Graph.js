@@ -9,6 +9,16 @@
   list-style: none;
 }
 
+input,
+select{
+  padding: 10px;
+  background: lightblue;
+}
+
+form{
+  margin: 10px;
+}
+
 .container {
 
   width: 100vw;
@@ -22,4 +32,9 @@
 #myChart{
   width: 80%;
   height: 80%;
+}
+
+#myChartBar{
+  width: 300px;
+  height: 300px;
 }

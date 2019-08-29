@@ -3,8 +3,16 @@ function init() {
     var buttonAdd = $('#addSale');
     getApiData();
 
+
     buttonAdd.click(function(){
-      registerNewSale();
+      var x = $('#importo').val();
+
+      if (isNaN(x)) {
+        alert("devi inserire un valore numerico");
+      }else{
+        registerNewSale();
+        $('#importo').val("");
+      }
 
     });
 }
@@ -206,9 +214,9 @@ function getGraphBar(data){
     // Configuration options go here
     options: {
 
-            // rotation: -Math.PI,
-            cutoutPercentage: 30,
-            // circumference: Math.PI,
+            responsive: true,
+            maintainAspectRatio: true,
+            // width: 200,
             legend: {
               display: true,
               position: 'top',
@@ -219,13 +227,18 @@ function getGraphBar(data){
               position: 'right',
               fontSize: 28,
             },
+
             animation: {
               animateRotate: true,
               animateScale: true
-            }
+            },
+
+
           }
 
         });
+
+
 
 }
 
