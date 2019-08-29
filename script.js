@@ -162,6 +162,7 @@ function getChartTorta(data){
             legend: {
               display: true,
               position: 'right',
+              text: "olaaaaaa"
             },
             title: {
               display: true,
@@ -190,18 +191,11 @@ function getGraphBar(data){
         labels: getQuarter(data),
         datasets: [{
             label: 'My First dataset',
-            backgroundColor: ['rgb(255, 99, 132)',
-                              'rgb(255, 88, 547)',
-                              'yellow',
-                              'lightblue',
+            backgroundColor: ['lightblue',
                               'lightgreen',
                               'lightpink',
-                              'lightgrey',
-                              'lightbrown',
-                              'orange',
-                              'blue',
                               'grey',
-                              'green'],
+                              ],
             borderColor: 'rgb(255, 99, 132)',
             data: getTotalSaleForQuarter(data),
 
@@ -217,12 +211,12 @@ function getGraphBar(data){
             // circumference: Math.PI,
             legend: {
               display: true,
-              position: 'right',
+              position: 'top',
             },
             title: {
               display: true,
               text: 'VENDITE PER QUARTER',
-              position: 'left',
+              position: 'right',
               fontSize: 28,
             },
             animation: {
@@ -318,17 +312,20 @@ function getTotalSaleForQuarter(data){
     var d = data[i];
     var extractMonth = moment(d.date, "DD-MM-YYYY").month();
     if (extractMonth >= 0 && extractMonth <=2) {
-      arrTotQuarter[0] += parseInt(d.amount);
+      arrTotQuarter[0] ++;
     }else if (extractMonth >= 3 && extractMonth <=5){
-      arrTotQuarter[1] += parseInt(d.amount);
+      arrTotQuarter[1] ++;
     }else if (extractMonth >= 6 && extractMonth <=8){
-      arrTotQuarter[2] += parseInt(d.amount);
+      arrTotQuarter[2] ++;
     }else{
-      arrTotQuarter[3] += parseInt(d.amount);
+      arrTotQuarter[3] ++;
     }
+
     console.log("LOG PER OGNI DATA ",extractMonth);
-    console.log("ARR TOT QUARTER: ", arrTotQuarter);
+
   }
+  console.log("ARR TOT QUARTER: ", arrTotQuarter);
+  arrTotQuarter.push(0);
   return arrTotQuarter
 }
 
