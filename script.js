@@ -91,7 +91,7 @@ function calcolovenditepermese(data){
 
 
 function getChart(data){
-  var remove = $('#myChart').children().remove();
+
   var ctx = document.getElementById('myChart').getContext('2d');
   var chart = new Chart(ctx, {
     // The type of chart we want to create
@@ -110,12 +110,19 @@ function getChart(data){
     },
 
     // Configuration options go here
-    options: {}
+    options: {
+      title: {
+        display: true,
+        text: 'VENDITE TOTALI PER OGNI MESE',
+        fontSize: 28,
+        position: "right"
+      },
+    }
 });
 }
 
 function getChartTorta(data){
-  var remove = $('#myChartTorta').children().remove();
+
   var ctx = document.getElementById('myChartTorta').getContext('2d');
   var chart = new Chart(ctx, {
     // The type of chart we want to create
@@ -141,15 +148,32 @@ function getChartTorta(data){
             borderColor: 'rgb(255, 99, 132)',
             data: calcVendAnnualiPerAgente(data),
 
-
-
         }]
+
     },
 
     // Configuration options go here
     options: {
 
-    }
+            // rotation: -Math.PI,
+            cutoutPercentage: 30,
+            // circumference: Math.PI,
+            legend: {
+              display: true,
+              position: 'right',
+            },
+            title: {
+              display: true,
+              text: 'VENDITE TOTALI PER OGNI VENDITORE SU BASE ANNUA',
+              position: 'left',
+              fontSize: 28,
+            },
+            animation: {
+              animateRotate: true,
+              animateScale: true
+            }
+          }
+
 });
 }
 
