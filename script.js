@@ -128,28 +128,19 @@ function getsalesman(data){
 }
 
 
+
+
 function calcVendAnnualiPerAgente(data){
 
   var salesmans = getsalesman(data);
-  var arrforChart = [];
-  var obj = {};
+  var arrTotAmount = new Array(salesmans.length).fill(0);
 
   // console.log("salesman in funzione esterna", salesman);
 
   for (var i = 0; i < salesmans.length; i++) {
 
-    console.log("SALESMANS");
-    console.log(salesmans);
-    console.log(salesmans.length);
-    console.log("CIaooooo");
-    obj = {
-      salesman: "",
-      amountofyear: ""
-    };
     var contovendite = 0;
     var salesMan = salesmans[i];
-
-    obj.salesman = salesMan;
 
     console.log("salesman esterno:", salesMan);
 
@@ -158,14 +149,91 @@ function calcVendAnnualiPerAgente(data){
 
       if (d.salesman === salesMan) {
 
-        contovendite += d.amount;
+        arrTotAmount[i] += d.amount;
       }
 
     }
-    obj.amountofyear = contovendite
-    arrforChart.push(obj);
-    console.log("OBJ:", arrforChart);
+    
+    console.log("OBJ:", arrTotAmount);
   }
 
-  return arrforChart;
+  return arrTotAmount;
   }
+
+
+
+
+// function calcVendAnnualiPerAgente(data){
+//
+//   var salesmans = getsalesman(data);
+//   var arrTotAmount = [];
+//
+//   // console.log("salesman in funzione esterna", salesman);
+//
+//   for (var i = 0; i < salesmans.length; i++) {
+//
+//     var contovendite = 0;
+//     var salesMan = salesmans[i];
+//
+//     console.log("salesman esterno:", salesMan);
+//
+//     for (var j = 0; j < data.length; j++) {
+//       var d = data[j];
+//
+//       if (d.salesman === salesMan) {
+//
+//         contovendite += d.amount;
+//       }
+//
+//     }
+//     arrTotAmount.push(contovendite);
+//     console.log("OBJ:", arrTotAmount);
+//   }
+//
+//   return arrTotAmount;
+//   }
+
+
+
+
+// function calcVendAnnualiPerAgente(data){
+//
+//   var salesmans = getsalesman(data);
+//   var arrforChart = [];
+//   var obj = {};
+//
+//   // console.log("salesman in funzione esterna", salesman);
+//
+//   for (var i = 0; i < salesmans.length; i++) {
+//
+//     console.log("SALESMANS");
+//     console.log(salesmans);
+//     console.log(salesmans.length);
+//     console.log("CIaooooo");
+//     obj = {
+//       salesman: "",
+//       amountofyear: ""
+//     };
+//     var contovendite = 0;
+//     var salesMan = salesmans[i];
+//
+//     obj.salesman = salesMan;
+//
+//     console.log("salesman esterno:", salesMan);
+//
+//     for (var j = 0; j < data.length; j++) {
+//       var d = data[j];
+//
+//       if (d.salesman === salesMan) {
+//
+//         contovendite += d.amount;
+//       }
+//
+//     }
+//     obj.amountofyear = contovendite
+//     arrforChart.push(obj);
+//     console.log("OBJ:", arrforChart);
+//   }
+//
+//   return arrforChart;
+//   }
