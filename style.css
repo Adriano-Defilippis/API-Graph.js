@@ -16,7 +16,7 @@ select{
 }
 
 form{
-  margin: 10px;
+  margin: 10px 25px;
 }
 
 .container {
@@ -27,6 +27,10 @@ form{
   padding: 50px 25px;
 
   overflow: hidden;
+}
+
+canvas{
+  padding: 50px;
 }
 
 #myChart{

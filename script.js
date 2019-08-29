@@ -9,6 +9,7 @@ function init() {
 
       if (isNaN(x)) {
         alert("devi inserire un valore numerico");
+        $('#importo').val("");
       }else{
         registerNewSale();
         $('#importo').val("");
@@ -345,6 +346,7 @@ function getTotalSaleForQuarter(data){
 
 function registerNewSale(){
 
+  $("#selectsalesman").val("");
   var salesName = $('select#selectsalesman').find(":selected").text();
   var salesValue = parseInt($('input[type=text][name=valsales]').val());
 
