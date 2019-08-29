@@ -21,7 +21,11 @@ function getApiData (){
 
     success: function(data){
       console.log(data);
-      templateAddSales(getsalesman(data), getMonth());
+
+      if ($('#selectsalesman').empty() && $('#selectmonth').empty()) {
+        templateAddSales(getsalesman(data), getMonth());
+      }
+
       getChart(data);
       getChartTorta(data)
     },
@@ -52,7 +56,8 @@ function templateAddSales(arrSalesman, arrMonth){
       option: salesMan
     };
     var html = template(context);
-    $('#selectsalesman').append(html);
+
+      $('#selectsalesman').append(html);
   }
 
   for (var j = 0; j < arrMonth.length; j++) {
@@ -62,7 +67,9 @@ function templateAddSales(arrSalesman, arrMonth){
       option: month
     };
     var html = template(context);
-    $('#selectmonth').append(html);
+    // $('#selectmonth').child().remove();
+
+      $('#selectmonth').append(html);
   }
 }
 
@@ -73,7 +80,7 @@ function calcolovenditepermese(data){
 
   for (var i = 0; i < data.length; i++) {
     var d = data[i];
-    var amount = Number(d.amount);
+    var amount = parseInt(d.amount);
     var month = moment(d.date, "DD-MM-YYYY").month();
 
     arrmonthvendite[month] += amount;
@@ -84,6 +91,7 @@ function calcolovenditepermese(data){
 
 
 function getChart(data){
+  var remove = $('#myChart').children().remove();
   var ctx = document.getElementById('myChart').getContext('2d');
   var chart = new Chart(ctx, {
     // The type of chart we want to create
@@ -107,6 +115,7 @@ function getChart(data){
 }
 
 function getChartTorta(data){
+  var remove = $('#myChartTorta').children().remove();
   var ctx = document.getElementById('myChartTorta').getContext('2d');
   var chart = new Chart(ctx, {
     // The type of chart we want to create
@@ -184,10 +193,10 @@ function calcVendAnnualiPerAgente(data){
 
       if (d.salesman === salesMan) {
 
-        arrTotAmount[i] += d.amount;
+        arrTotAmount[i] += parseInt(d.amount);
       }
 
-      fatTotale += d.amount;
+      fatTotale += parseInt(d.amount);
     }
 
     arrTotAmount[i] = Math.ceil((arrTotAmount[i] * 100) / fatTotale) * 2;
@@ -203,15 +212,50 @@ function calcVendAnnualiPerAgente(data){
 function registerNewSale(){
 
   var salesName = $('select#selectsalesman').find(":selected").text();
-  var salesValue = $('input[type=number][name=valsales]').val();
+  var salesValue = parseInt($('input[type=text][name=valsales]').val());
+
+  console.log("VAOLORE INPUT AMOUNT: ", salesValue );
+
   var month = $('select#selectmonth').find(":selected").text();
 
+  $.ajax({
+    url: "http://157.230.17.132:4003/sales",
+    method: "POST",
 
-  console.log("VENDITORE SELEZIONATO:" + salesName);
+    data: {
+      salesman: salesName,
+      amount: Number(salesValue),
+      // date: "15-"+month+"-2017"
+      date: "01/"+monthToNumber(month)+"/2017"
+    },
+    success: function(){
 
-  console.log("MESE SELEZIONATO:" + month);
-  console.log("VALORE INSERITO:" + salesValue);
+      getApiData();
+    },
+    error: function(){
+      alert('Errore chiamata Post')
+    }
+  });
 
+}
 
+function monthToNumber(nameMonth){
 
+  var arrMontName = getMonth();
+
+  for (var i = 0; i < arrMontName.length; i++) {
+    var name = arrMontName[i]
+
+    if (name === nameMonth) {
+
+      var numberToMonth = i+1;
+      var strnamemonth = numberToMonth.toString();
+      console.log("numberToMonth.length", strnamemonth.length);
+      if (strnamemonth.length === 1) {
+        strnamemonth = "0" + strnamemonth
+      }
+
+      return strnamemonth
+    }
+  }
 }
