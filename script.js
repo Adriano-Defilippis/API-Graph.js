@@ -27,7 +27,8 @@ function getApiData (){
       }
 
       getChart(data);
-      getChartTorta(data)
+      getChartTorta(data);
+      getGraphBar(data);
     },
     error: function(){
       alert("Errore caricamento dati api")
@@ -177,6 +178,63 @@ function getChartTorta(data){
 });
 }
 
+function getGraphBar(data){
+
+  var ctx = document.getElementById('myChartBar').getContext('2d');
+  var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'bar',
+
+    // The data for our dataset
+    data: {
+        labels: getQuarter(data),
+        datasets: [{
+            label: 'My First dataset',
+            backgroundColor: ['rgb(255, 99, 132)',
+                              'rgb(255, 88, 547)',
+                              'yellow',
+                              'lightblue',
+                              'lightgreen',
+                              'lightpink',
+                              'lightgrey',
+                              'lightbrown',
+                              'orange',
+                              'blue',
+                              'grey',
+                              'green'],
+            borderColor: 'rgb(255, 99, 132)',
+            data: getTotalSaleForQuarter(data),
+
+        }]
+
+    },
+
+    // Configuration options go here
+    options: {
+
+            // rotation: -Math.PI,
+            cutoutPercentage: 30,
+            // circumference: Math.PI,
+            legend: {
+              display: true,
+              position: 'right',
+            },
+            title: {
+              display: true,
+              text: 'VENDITE PER QUARTER',
+              position: 'left',
+              fontSize: 28,
+            },
+            animation: {
+              animateRotate: true,
+              animateScale: true
+            }
+          }
+
+        });
+
+}
+
 function getsalesman(data){
 
   var arrsalesman = [];
@@ -231,6 +289,48 @@ function calcVendAnnualiPerAgente(data){
   return arrTotAmount;
   }
 
+
+
+function getQuarter(){
+
+  var arrQuarter= [];
+ var arrMonth = getMonth();
+ var arrMonthLenght = arrMonth.length ;
+ var quarter = arrMonthLenght/3;
+
+ console.log("lunghezza array mesi: ", arrMonthLenght);
+ for (var i = 1; i <= quarter; i++) {
+   arrQuarter.push("Q" + i)
+ }
+ console.log("ARR QUARTER: ", arrQuarter);
+ return arrQuarter
+}
+
+
+function getTotalSaleForQuarter(data){
+
+  var arrQuarter = getQuarter();
+  var arrTotQuarter = new Array(arrQuarter.length).fill(0);
+
+  console.log("ARRAY INIZIALIZZATO A ZERO PER SOMMA QUORTER: ", arrTotQuarter);
+
+  for (var i = 0; i < data.length; i++) {
+    var d = data[i];
+    var extractMonth = moment(d.date, "DD-MM-YYYY").month();
+    if (extractMonth >= 0 && extractMonth <=2) {
+      arrTotQuarter[0] += parseInt(d.amount);
+    }else if (extractMonth >= 3 && extractMonth <=5){
+      arrTotQuarter[1] += parseInt(d.amount);
+    }else if (extractMonth >= 6 && extractMonth <=8){
+      arrTotQuarter[2] += parseInt(d.amount);
+    }else{
+      arrTotQuarter[3] += parseInt(d.amount);
+    }
+    console.log("LOG PER OGNI DATA ",extractMonth);
+    console.log("ARR TOT QUARTER: ", arrTotQuarter);
+  }
+  return arrTotQuarter
+}
 
 
 function registerNewSale(){
