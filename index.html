@@ -18,8 +18,9 @@
 
     <!-- JS: HANDLEBARS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js" charset="utf-8"></script>
-    <!-- TEMPLATE: MESSAGE MENU -->
-    <script id="item-template" type="text/x-handlebars-template">
+    <!-- TEMPLATE: option MENU -->
+    <script id="option-template" type="text/x-handlebars-template">
+      <option value="{{option}}">{{option}}</option>
     </script>
 
     <!-- CSS: MY STYLE -->
@@ -32,6 +33,15 @@
   </head>
   <body>
 
+    <select id="selectsalesman" name="Seleziona il venditore">
+
+    </select>
+
+    <select id="selectmonth" name="">
+
+    </select>
+    <input type="number" name="" value="Inserisci importo">
+    <input type="button" name="" value="Registra vendita">
     <canvas id="myChart"></canvas>
 
     <canvas id="myChartTorta"></canvas>

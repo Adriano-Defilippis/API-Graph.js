@@ -15,6 +15,7 @@ function getApiData (){
 
     success: function(data){
       console.log(data);
+      templateAddSales(getsalesman(data), getMonth());
       getChart(data);
       getChartTorta(data)
     },
@@ -33,6 +34,31 @@ function getMonth(){
   return months
 }
 
+function templateAddSales(arrSalesman, arrMonth){
+
+  var source = $('#option-template').html();
+  var template = Handlebars.compile(source);
+
+  for (var i = 0; i < arrSalesman.length; i++) {
+    var salesMan = arrSalesman[i];
+
+    var context = {
+      option: salesMan
+    };
+    var html = template(context);
+    $('#selectsalesman').append(html);
+  }
+
+  for (var j = 0; j < arrMonth.length; j++) {
+    var month = arrMonth[j];
+
+    var context = {
+      option: month
+    };
+    var html = template(context);
+    $('#selectmonth').append(html);
+  }
+}
 
 
 function calcolovenditepermese(data){
@@ -106,7 +132,9 @@ function getChartTorta(data){
     },
 
     // Configuration options go here
-    options: {}
+    options: {
+
+    }
 });
 }
 
