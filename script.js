@@ -1,6 +1,12 @@
 function init() {
-    console.log("Hello World");
+
+    var buttonAdd = $('#addSale');
     getApiData();
+
+    buttonAdd.click(function(){
+      registerNewSale();
+
+    });
 }
 
 $(document).ready(init);
@@ -194,78 +200,18 @@ function calcVendAnnualiPerAgente(data){
 
 
 
+function registerNewSale(){
 
-// function calcVendAnnualiPerAgente(data){
-//
-//   var salesmans = getsalesman(data);
-//   var arrTotAmount = [];
-//
-//   // console.log("salesman in funzione esterna", salesman);
-//
-//   for (var i = 0; i < salesmans.length; i++) {
-//
-//     var contovendite = 0;
-//     var salesMan = salesmans[i];
-//
-//     console.log("salesman esterno:", salesMan);
-//
-//     for (var j = 0; j < data.length; j++) {
-//       var d = data[j];
-//
-//       if (d.salesman === salesMan) {
-//
-//         contovendite += d.amount;
-//       }
-//
-//     }
-//     arrTotAmount.push(contovendite);
-//     console.log("OBJ:", arrTotAmount);
-//   }
-//
-//   return arrTotAmount;
-//   }
+  var salesName = $('select#selectsalesman').find(":selected").text();
+  var salesValue = $('input[type=number][name=valsales]').val();
+  var month = $('select#selectmonth').find(":selected").text();
+
+
+  console.log("VENDITORE SELEZIONATO:" + salesName);
+
+  console.log("MESE SELEZIONATO:" + month);
+  console.log("VALORE INSERITO:" + salesValue);
 
 
 
-
-// function calcVendAnnualiPerAgente(data){
-//
-//   var salesmans = getsalesman(data);
-//   var arrforChart = [];
-//   var obj = {};
-//
-//   // console.log("salesman in funzione esterna", salesman);
-//
-//   for (var i = 0; i < salesmans.length; i++) {
-//
-//     console.log("SALESMANS");
-//     console.log(salesmans);
-//     console.log(salesmans.length);
-//     console.log("CIaooooo");
-//     obj = {
-//       salesman: "",
-//       amountofyear: ""
-//     };
-//     var contovendite = 0;
-//     var salesMan = salesmans[i];
-//
-//     obj.salesman = salesMan;
-//
-//     console.log("salesman esterno:", salesMan);
-//
-//     for (var j = 0; j < data.length; j++) {
-//       var d = data[j];
-//
-//       if (d.salesman === salesMan) {
-//
-//         contovendite += d.amount;
-//       }
-//
-//     }
-//     obj.amountofyear = contovendite
-//     arrforChart.push(obj);
-//     console.log("OBJ:", arrforChart);
-//   }
-//
-//   return arrforChart;
-//   }
+}

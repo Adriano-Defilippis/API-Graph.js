@@ -33,15 +33,19 @@
   </head>
   <body>
 
-    <select id="selectsalesman" name="Seleziona il venditore">
+    <form class="postsales" action="index.html" method="post">
+      <select id="selectsalesman" name="Seleziona il venditore">
 
-    </select>
+      </select>
 
-    <select id="selectmonth" name="">
+      <select id="selectmonth" name="">
 
-    </select>
-    <input type="number" name="" value="Inserisci importo">
-    <input type="button" name="" value="Registra vendita">
+      </select>
+      <input id="importo" type="number" name="valsales" placeholder="Inserisci importo" value="">
+      <input id="addSale" type="button" name="" value="Registra vendita">
+    </form>
+
+
     <canvas id="myChart"></canvas>
 
     <canvas id="myChartTorta"></canvas>
