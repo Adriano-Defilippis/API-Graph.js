@@ -134,12 +134,13 @@ function calcVendAnnualiPerAgente(data){
 
   var salesmans = getsalesman(data);
   var arrTotAmount = new Array(salesmans.length).fill(0);
+  var fatTotale = 0;
 
   // console.log("salesman in funzione esterna", salesman);
 
   for (var i = 0; i < salesmans.length; i++) {
 
-    var contovendite = 0;
+
     var salesMan = salesmans[i];
 
     console.log("salesman esterno:", salesMan);
@@ -152,11 +153,14 @@ function calcVendAnnualiPerAgente(data){
         arrTotAmount[i] += d.amount;
       }
 
+      fatTotale += d.amount;
     }
-    
+
+    arrTotAmount[i] = Math.ceil((arrTotAmount[i] * 100) / fatTotale) * 2;
     console.log("OBJ:", arrTotAmount);
   }
-
+  console.log("FATTURATO TOTALE");
+  console.log(fatTotale);
   return arrTotAmount;
   }
 
