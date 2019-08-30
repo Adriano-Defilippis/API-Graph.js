@@ -5,11 +5,11 @@ function init() {
 
 
     buttonAdd.click(function(){
-      var x = $('#importo').val();
+      var x = $('#importo');
 
       console.log("Controllo: " + $('#importo').val());
 
-      if (isNaN(x) || $('#importo').val()) {
+      if (isNaN(x) || x.val()) {
         alert("devi inserire un valore numerico");
         $('#importo').val("");
       }else{
@@ -113,9 +113,9 @@ function getChart(data){
     data: {
         labels: getMonth(),
         datasets: [{
-            label: 'My First dataset',
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
+            label: "Volume D'affari",
+            backgroundColor: 'rgba(255, 99, 132, 0.4)',
+            borderColor: 'rgba(00, 00, 00, 0.4)',
             data: calcolovenditepermese(data),
 
         }]
@@ -128,6 +128,10 @@ function getChart(data){
         text: 'VENDITE TOTALI PER OGNI MESE',
         fontSize: 28,
         position: "left"
+      },
+      legend: {
+        display: true,
+        position: 'right',
       },
     }
 });
@@ -166,7 +170,7 @@ function getChartTorta(data){
     data: {
         labels: name,
         datasets: [{
-            label: 'My First dataset',
+
             backgroundColor: ['lightblue',
                               'lightgreen',
                               'lightpink',
@@ -211,6 +215,11 @@ function getChartTorta(data){
 
 function getGraphBar(data){
 
+  var obj = getTotalSaleForQuarter(data);
+
+  var quarterArr = Object.keys(obj);
+  var amountForQuarterArr = Object.values(obj);
+
   var ctx = document.getElementById('myChartBar').getContext('2d');
   var chart = new Chart(ctx, {
     // The type of chart we want to create
@@ -218,16 +227,16 @@ function getGraphBar(data){
 
     // The data for our dataset
     data: {
-        labels: getQuarter(data),
+        labels: quarterArr,
         datasets: [{
-            label: 'My First dataset',
+            // label: 'My First dataset',
             backgroundColor: ['lightblue',
                               'lightgreen',
                               'lightpink',
                               'grey',
                               ],
             borderColor: 'rgb(255, 99, 132)',
-            data: getTotalSaleForQuarter(data),
+            data: amountForQuarterArr,
 
         }]
 
@@ -259,9 +268,6 @@ function getGraphBar(data){
           }
 
         });
-
-
-
 }
 
 function getsalesman(data){
@@ -307,49 +313,50 @@ function calcVendAnnualiPerAgente(data){
 
 
 
-function getQuarter(){
-
-  var arrQuarter= [];
- var arrMonth = getMonth();
- var arrMonthLenght = arrMonth.length ;
- var quarter = arrMonthLenght/3;
-
- console.log("lunghezza array mesi: ", arrMonthLenght);
- for (var i = 1; i <= quarter; i++) {
-   arrQuarter.push("Q" + i)
- }
- console.log("ARR QUARTER: ", arrQuarter);
- return arrQuarter
-}
-
-
 function getTotalSaleForQuarter(data){
 
-  var arrQuarter = getQuarter();
-  var arrTotQuarter = new Array(arrQuarter.length).fill(0);
-
-  console.log("ARRAY INIZIALIZZATO A ZERO PER SOMMA QUORTER: ", arrTotQuarter);
+  var obj = {};
+  var quarterStr = "";
 
   for (var i = 0; i < data.length; i++) {
     var d = data[i];
-    var extractMonth = moment(d.date, "DD-MM-YYYY").month();
-    if (extractMonth >= 0 && extractMonth <=2) {
-      arrTotQuarter[0] ++;
-    }else if (extractMonth >= 3 && extractMonth <=5){
-      arrTotQuarter[1] ++;
-    }else if (extractMonth >= 6 && extractMonth <=8){
-      arrTotQuarter[2] ++;
-    }else{
-      arrTotQuarter[3] ++;
+    var amount = Number(d.amount);
+    var date = moment(d.date, "DD-MM-YYY").month();
+
+    if (!obj["Q1"]) {
+
+      obj["Q1"] = 0;
+    }if(!obj["Q2"]){
+
+      obj["Q2"] = 0;
+    }if(!obj["Q3"]){
+
+      obj["Q3"] = 0;
+    }if(!obj["Q4"]){
+
+      obj["Q4"] = 0;
     }
 
-    console.log("LOG PER OGNI DATA ",extractMonth);
+    if (date >= 0 && date <=2) {
+      obj["Q1"] += amount;
+    }
+
+    if (date >= 3 && date <=5) {
+      obj["Q2"] += amount;
+    }
+
+    if (date >=6 && date <=8) {
+      obj["Q3"] += amount;
+    }
+    if (date >=9 && date <=11){
+      obj["Q4"] += amount;
+    }
 
   }
-  console.log("ARR TOT QUARTER: ", arrTotQuarter);
-  arrTotQuarter.push(0);
-  return arrTotQuarter
+  console.log("LOG DI OBJ:", obj);
+  return obj
 }
+
 
 
 function registerNewSale(){
