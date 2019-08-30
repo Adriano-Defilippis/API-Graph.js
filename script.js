@@ -11,7 +11,7 @@ function init() {
       x = Number(x);
       console.log("Controllo: " + $('#importo').val().length);
 
-      if (isNaN(x) || $('#importo').val().length === 0) {
+      if (isNaN(x) || x.length === 0) {
         alert("devi inserire un valore numerico");
         $('#importo').val("");
       }else{
