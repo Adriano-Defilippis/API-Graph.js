@@ -7,9 +7,9 @@ function init() {
     buttonAdd.click(function(){
       var x = $('#importo').val();
 
-      console.log("Controllo: " + x.empty(""));
+      console.log("Controllo: " + $('#importo').val());
 
-      if (isNaN(x) || x === empty()) {
+      if (isNaN(x) || $('#importo').val()) {
         alert("devi inserire un valore numerico");
         $('#importo').val("");
       }else{
@@ -135,6 +135,28 @@ function getChart(data){
 
 function getChartTorta(data){
 
+  var arrData = calcVendAnnualiPerAgente(data);
+
+  var name = Object.keys(arrData);
+  var amounts = Object.values(arrData);
+
+  console.log("AMOUNTS pre PRERCENTUALI", amounts);
+
+  var sumAmounts = 0;
+  for (var i = 0; i < amounts.length; i++) {
+    sumAmounts += Number(amounts[i]);
+  }
+
+  for (var i = 0; i < amounts.length; i++) {
+    amounts[i] = ((amounts[i]/sumAmounts)*100).toFixed(2);
+
+  }
+
+  console.log("AMOUNTS POST PERCENTUALI ", amounts);
+
+  console.log("NAME ", name);
+  console.log("AMOUNTH", amounts);
+
   var ctx = document.getElementById('myChartTorta').getContext('2d');
   var chart = new Chart(ctx, {
     // The type of chart we want to create
@@ -142,7 +164,7 @@ function getChartTorta(data){
 
     // The data for our dataset
     data: {
-        labels: getsalesman(data),
+        labels: name,
         datasets: [{
             label: 'My First dataset',
             backgroundColor: ['rgb(255, 99, 132)',
@@ -158,7 +180,7 @@ function getChartTorta(data){
                               'grey',
                               'green'],
             borderColor: 'rgb(255, 99, 132)',
-            data: calcVendAnnualiPerAgente(data),
+            data: amounts,
 
         }]
 
@@ -189,6 +211,7 @@ function getChartTorta(data){
 
 });
 }
+
 
 function getGraphBar(data){
 
@@ -263,41 +286,68 @@ function getsalesman(data){
 }
 
 
-
-
 function calcVendAnnualiPerAgente(data){
 
-  var salesmans = getsalesman(data);
-  var arrTotAmount = new Array(salesmans.length).fill(0);
-  var fatTotale = 0;
+  var sellers = {};
 
-  // console.log("salesman in funzione esterna", salesman);
+  for (var i = 0; i < data.length; i++) {
+    var d = data[i];
 
-  for (var i = 0; i < salesmans.length; i++) {
+    var name = d.salesman;
+    var amount = Number(d.amount);
 
+    if (!sellers[name]) {
 
-    var salesMan = salesmans[i];
-
-    console.log("salesman esterno:", salesMan);
-
-    for (var j = 0; j < data.length; j++) {
-      var d = data[j];
-
-      if (d.salesman === salesMan) {
-
-        arrTotAmount[i] += parseInt(d.amount);
-      }
-
-      fatTotale += parseInt(d.amount);
+      sellers[name] = 0;
     }
 
-    arrTotAmount[i] = Math.ceil((arrTotAmount[i] * 100) / fatTotale) * 2;
-    console.log("OBJ:", arrTotAmount);
+    sellers[name] += amount;
+    // console.log("SELLERS: ", sellers);
   }
-  console.log("FATTURATO TOTALE");
-  console.log(fatTotale);
-  return arrTotAmount;
+  console.log("SELLERS AMOUNT: ", sellers);
+  return sellers
+
   }
+
+
+
+
+// function calcVendAnnualiPerAgente(data){
+//
+//   var salesmans = getsalesman(data);
+//   var arrTotAmount = new Array(salesmans.length).fill(0);
+//   var fatTotale = 0;
+//
+//   // console.log("salesman in funzione esterna", salesman);
+//
+//   for (var i = 0; i < salesmans.length; i++) {
+//
+//
+//     var salesMan = salesmans[i];
+//
+//     console.log("salesman esterno:", salesMan);
+//
+//     for (var j = 0; j < data.length; j++) {
+//       var d = data[j];
+//
+//       if (d.salesman === salesMan) {
+//
+//         arrTotAmount[i] += parseInt(d.amount);
+//       }
+//
+//       fatTotale += parseInt(d.amount);
+//     }
+//
+//     arrTotAmount[i] = (((Number(arrTotAmount[i]) / fatTotale) * 100) * 2).toFixed(2);
+//     console.log("TOTALE PER AGENTE: ", Number(arrTotAmount[i]));
+//     console.log("FATTURATO TOTALE: ", fatTotale);
+//
+//   }
+//   console.log("OBJ:", arrTotAmount);
+//   console.log("FATTURATO TOTALE");
+//   console.log(fatTotale);
+//   return arrTotAmount;
+//   }
 
 
 
