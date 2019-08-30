@@ -63,6 +63,7 @@ function templateAddSales(arrSalesman, arrMonth){
   var source = $('#option-template').html();
   var template = Handlebars.compile(source);
 
+  $('#selectsalesman').append("<option defaul>Select the Salesman</option>");
   for (var i = 0; i < arrSalesman.length; i++) {
     var salesMan = arrSalesman[i];
 
@@ -74,6 +75,7 @@ function templateAddSales(arrSalesman, arrMonth){
       $('#selectsalesman').append(html);
   }
 
+  $('#selectmonth').append("<option defaul>Select the Mounth</option>");
   for (var j = 0; j < arrMonth.length; j++) {
     var month = arrMonth[j];
 
@@ -197,13 +199,13 @@ function getChartTorta(data){
             // circumference: Math.PI,
             legend: {
               display: true,
-              position: 'right',
+              position: 'left',
             },
             title: {
               display: true,
               text: 'VENDITE TOTALI PER OGNI VENDITORE SU BASE ANNUA',
-              position: 'right',
-              fontSize: 28,
+              position: 'top',
+              fontSize: 24,
             },
             animation: {
               animateRotate: true,
@@ -252,12 +254,12 @@ function getGraphBar(data){
             // width: 200,
             legend: {
               display: true,
-              position: 'left',
+              position: 'right',
             },
             title: {
               display: true,
               text: 'VENDITE PER QUARTER',
-              position: 'left',
+              position: 'top',
               fontSize: 28,
             },
 
@@ -289,7 +291,6 @@ function getsalesman(data){
   return arrsalesman
 }
 
-
 function calcVendAnnualiPerAgente(data){
 
   var sellers = {};
@@ -312,8 +313,6 @@ function calcVendAnnualiPerAgente(data){
   return sellers
 
   }
-
-
 
 function getTotalSaleForQuarter(data){
 
@@ -358,8 +357,6 @@ function getTotalSaleForQuarter(data){
   console.log("LOG DI OBJ:", obj);
   return obj
 }
-
-
 
 function registerNewSale(){
 
