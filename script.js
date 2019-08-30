@@ -7,7 +7,9 @@ function init() {
     buttonAdd.click(function(){
       var x = $('#importo').val();
 
-      if (isNaN(x)) {
+      console.log("Controllo: " + x.empty(""));
+
+      if (isNaN(x) || x === empty()) {
         alert("devi inserire un valore numerico");
         $('#importo').val("");
       }else{
