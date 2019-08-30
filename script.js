@@ -1,15 +1,17 @@
 function init() {
 
     var buttonAdd = $('#addSale');
+
+    moment.locale("it");
     getApiData();
 
 
     buttonAdd.click(function(){
-      var x = $('#importo');
+      var x = $('#importo').val();
+      x = Number(x);
+      console.log("Controllo: " + $('#importo').val().length);
 
-      console.log("Controllo: " + $('#importo').val());
-
-      if (isNaN(x) || x.val()) {
+      if (isNaN(x) || $('#importo').val().length === 0) {
         alert("devi inserire un valore numerico");
         $('#importo').val("");
       }else{
