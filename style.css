@@ -19,18 +19,44 @@ form{
   margin: 10px 25px;
 }
 
-.container {
+.mycontainer {
 
   width: 100vw;
-  height: 100vh;
+  height: auto;
 
   padding: 50px 25px;
 
   overflow: hidden;
 }
 
+.row{
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.row::after{
+  display: table;;
+  content: "";
+  clear: both;
+}
 canvas{
-  padding: 50px;
+  /* padding: 50px; */
+  display: block;
+}
+
+.canvas_right,
+.canvas_left{
+  width: 50%;
+  height: auto;
+}
+
+.canvas_left{
+  float: left;
+}
+
+.canvas_right{
+  float: right;
 }
 
 #myChart{

@@ -127,7 +127,7 @@ function getChart(data){
         display: true,
         text: 'VENDITE TOTALI PER OGNI MESE',
         fontSize: 28,
-        position: "right"
+        position: "left"
       },
     }
 });
@@ -167,10 +167,7 @@ function getChartTorta(data){
         labels: name,
         datasets: [{
             label: 'My First dataset',
-            backgroundColor: ['rgb(255, 99, 132)',
-                              'rgb(255, 88, 547)',
-                              'yellow',
-                              'lightblue',
+            backgroundColor: ['lightblue',
                               'lightgreen',
                               'lightpink',
                               'lightgrey',
@@ -179,7 +176,7 @@ function getChartTorta(data){
                               'blue',
                               'grey',
                               'green'],
-            borderColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgba(255, 99, 132, 0.3)',
             data: amounts,
 
         }]
@@ -195,12 +192,11 @@ function getChartTorta(data){
             legend: {
               display: true,
               position: 'right',
-              text: "olaaaaaa"
             },
             title: {
               display: true,
               text: 'VENDITE TOTALI PER OGNI VENDITORE SU BASE ANNUA',
-              position: 'left',
+              position: 'right',
               fontSize: 28,
             },
             animation: {
@@ -245,12 +241,12 @@ function getGraphBar(data){
             // width: 200,
             legend: {
               display: true,
-              position: 'top',
+              position: 'left',
             },
             title: {
               display: true,
               text: 'VENDITE PER QUARTER',
-              position: 'right',
+              position: 'left',
               fontSize: 28,
             },
 
@@ -308,46 +304,6 @@ function calcVendAnnualiPerAgente(data){
   return sellers
 
   }
-
-
-
-
-// function calcVendAnnualiPerAgente(data){
-//
-//   var salesmans = getsalesman(data);
-//   var arrTotAmount = new Array(salesmans.length).fill(0);
-//   var fatTotale = 0;
-//
-//   // console.log("salesman in funzione esterna", salesman);
-//
-//   for (var i = 0; i < salesmans.length; i++) {
-//
-//
-//     var salesMan = salesmans[i];
-//
-//     console.log("salesman esterno:", salesMan);
-//
-//     for (var j = 0; j < data.length; j++) {
-//       var d = data[j];
-//
-//       if (d.salesman === salesMan) {
-//
-//         arrTotAmount[i] += parseInt(d.amount);
-//       }
-//
-//       fatTotale += parseInt(d.amount);
-//     }
-//
-//     arrTotAmount[i] = (((Number(arrTotAmount[i]) / fatTotale) * 100) * 2).toFixed(2);
-//     console.log("TOTALE PER AGENTE: ", Number(arrTotAmount[i]));
-//     console.log("FATTURATO TOTALE: ", fatTotale);
-//
-//   }
-//   console.log("OBJ:", arrTotAmount);
-//   console.log("FATTURATO TOTALE");
-//   console.log(fatTotale);
-//   return arrTotAmount;
-//   }
 
 
 
